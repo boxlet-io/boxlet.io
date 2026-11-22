@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boxlet: containers, rethought from the ground up</title>
+<meta name="description" content="A boxlet is a WebAssembly container: your compiled code and nothing else. About 1 MB, loads in a fraction of a millisecond, reaches only what you give it, and runs beside your Linux containers.">
+<link rel="canonical" href="https://boxlet.io/">
+<meta property="og:title" content="Boxlet: containers, rethought from the ground up">
+<meta property="og:description" content="A boxlet is a WebAssembly container: your compiled code and nothing else. It runs beside your Linux containers, under the same commands.">
+<meta property="og:url" content="https://boxlet.io/">
+<meta name="theme-color" content="#0F1419">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='14' width='56' height='38' rx='5' fill='none' stroke='%239AA3AE' stroke-width='4'/%3E%3Crect x='34' y='34' width='18' height='11' rx='2' fill='%238F7CFF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="Boxlet home">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="14" width="56" height="38" rx="5" fill="none" stroke="#9AA3AE" stroke-width="3.5"/><path d="M14 20v26M22 20v26M30 20v26" stroke="#34404C" stroke-width="2"/><rect x="36" y="34" width="17" height="11" rx="2" fill="#8F7CFF"/></svg>
+      boxlet
+    </a>
+    <nav class="nav" aria-label="On this page">
+      <a href="/future-of-containers/">Whitepaper</a>
+      <a href="/future-of-containers/#architecture">Architecture</a>
+      <a href="#fit">How many fit</a>
+      <a href="#now">Why now</a>
+    </nav>
+    <a class="btn s cta" href="/future-of-containers/">Read the whitepaper</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div class="banner">
+      <p class="eyebrow">WebAssembly containers</p>
+      <h1>Containers, rethought from the ground up.</h1>
+      <div class="hero-body">
+        <div>
+          <p class="lead">We didn't get containers by shrinking virtual machines. We got them by asking what an app really needs. A boxlet asks that again: it holds only your compiled code, runs as WebAssembly on any machine, and reaches only what you give it.</p>
+          <div class="acts">
+            <a class="btn p" href="/future-of-containers/">Read the whitepaper</a>
+            <a class="btn s" href="#fit">See the numbers</a>
+          </div>
+          <p class="status"><b>In development</b> by the team behind <a href="https://runkiri.com">Kiri</a>.</p>
+          <div class="scale-head">
+            <div class="seg" role="group" aria-label="What to compare the boxlet with" aria-controls="scale">
+              <span>Compare with</span>
+              <span class="grp"><button type="button" data-cmp="py" aria-pressed="true">Python container</button><button type="button" data-cmp="go" aria-pressed="false">Go container</button></span>
+              <span class="grp"><button type="button" data-by="disk" aria-pressed="true">On disk</button><button type="button" data-by="mem" aria-pressed="false">Idle memory</button></span>
+            </div>
+            <p class="ratio" id="ratio" aria-live="polite"></p>
+          </div>
+        </div>
+        <figure class="scale" aria-describedby="ratio">
+          <svg id="scale" viewBox="0 96 600 256" role="img" aria-label="A container and a boxlet drawn to scale">
+            <g id="big"></g>
+            <path d="M0 340.5H600" stroke="#34404C"/>
+            <g id="nano"></g>
+            <g id="nanolab">
+              <line id="lead" stroke="#8F7CFF" stroke-width="1.5" stroke-dasharray="3 4"/>
+              <text id="nk" x="540" y="156" text-anchor="end" class="halo" fill="#B4A8FF" font-size="17" font-weight="600">boxlet</text>
+              <text id="nv" x="540" y="198" text-anchor="end" class="halo" fill="#B4A8FF" font-size="38" font-weight="600" letter-spacing="-1">91 KB</text>
+            </g>
+          </svg>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="sec" id="idea">
+  <div class="wrap">
+    <a class="tz" href="/future-of-containers/">
+      <h2>The future of containers isn't containers.</h2>
+      <div><p>Not smaller containers. Not faster containers. Containers rethought from the ground up, the way containers once rethought virtual machines.</p><span class="more">Read the whitepaper</span></div>
+    </a>
+  </div>
+</section>
+
+<section class="sec" id="inside">
+  <div class="wrap">
+    <h2>What it leaves out</h2>
+    <p class="intro">Each step in the history of servers took something out of the package. A virtual machine carried a whole operating system. A container shared the host's kernel but still carried a Linux userland. A boxlet carries only your compiled code and a list of what it needs from outside.</p>
+    <div class="stacks">
+      <div class="stk">
+        <h3>Virtual machine <span>since 2006</span></h3>
+        <div class="layers">
+          <div class="ship">
+            <div class="ly own code">your code</div>
+            <div class="ly own">language runtime</div>
+            <div class="ly own">libc, shell, certificates</div>
+            <div class="ly own">init and services</div>
+            <div class="ly own">its own kernel</div>
+          </div>
+          <div class="ly host">hypervisor, hardware</div>
+        </div>
+        <dl><dt>Starts in</dt><dd>112 ms for Kiri's small VM, seconds in the cloud</dd><dt>Wall</dt><dd>hardware virtualization</dd></dl>
+      </div>
+      <div class="stk">
+        <h3>Container <span>since 2013</span></h3>
+        <div class="layers">
+          <div class="ship">
+            <div class="ly own code">your code</div>
+            <div class="ly own">language runtime</div>
+            <div class="ly own">libc, shell, certificates</div>
+          </div>
+          <div class="ly host">host kernel, shared</div>
+        </div>
+        <dl><dt>Starts in</dt><dd>2.55 ms on Kiri, 213 ms on Docker Desktop, with removal</dd><dt>Wall</dt><dd>namespaces, cgroups and seccomp on a shared kernel</dd></dl>
+      </div>
+      <div class="stk">
+        <h3>Boxlet <span>next</span></h3>
+        <div class="layers">
+          <div class="ship">
+            <div class="ly own code">your code, compiled</div>
+          </div>
+          <div class="ly engine">WebAssembly engine, one for all</div>
+          <div class="ly host">host kernel, shared</div>
+        </div>
+        <dl><dt>Loads in</dt><dd>0.3 ms, then 0.02 ms a call</dd><dt>Wall</dt><dd>its own memory, and only the imports it is given</dd></dl>
+      </div>
+    </div>
+    <p class="note">Container and VM start times are from <a href="https://docs.runkiri.com/benchmarks/">Kiri's published benchmarks</a>. The boxlet figures are from the measurement below.</p>
+  </div>
+</section>
+
+<section class="sec" id="fit">
+  <div class="wrap">
+    <h2>How many fit on one machine</h2>
+    <p class="intro">We wrote one small program, a check that blocks container images with no version tag, and ran it as a Python container, a Go container and a Rust boxlet. Move the slider to see how the idle memory adds up as you run more of them.</p>
+    <div class="fit">
+      <label for="n">Services running <output id="nout" for="n">50</output></label>
+      <input type="range" id="n" min="1" max="500" value="50">
+      <div class="bars">
+        <div class="bar"><span class="l">Python containers</span><span class="t"><i id="bpy"></i></span><span class="v" id="vpy"></span></div>
+        <div class="bar"><span class="l">Go containers</span><span class="t"><i id="bgo"></i></span><span class="v" id="vgo"></span></div>
+        <div class="bar me"><span class="l">Boxlets</span><span class="t"><i id="bbx"></i></span><span class="v" id="vbx"></span></div>
+      </div>
+    </div>
+    <p class="note">Idle memory per program: 12.6 MB as a Python container, 5.8 MB as a Go container, 1.0 MB as a boxlet, plus about 2 MB once for the WebAssembly engine. The containers ran all the time, waiting for work. A boxlet can also be loaded for each call and use nothing between calls. Measured in Kiri's Linux VM on an Apple silicon Mac on 20 November 2026. Your own services will use more, so measure them.</p>
+  </div>
+</section>
+
+<section class="sec" id="reach">
+  <div class="wrap">
+    <h2>It reaches only what you hand it</h2>
+    <p class="intro">A container can ask the Linux kernel for anything, unless a filter says no. A boxlet can't make system calls at all. It gets a short list of imports, and you decide each one.</p>
+    <div class="reach">
+      <div class="panel">
+        <h3>A container</h3>
+        <p class="sub">About 390 system calls on x86-64 Linux. Docker's default filter blocks about 44 of them.</p>
+        <div class="grid390" id="g390" aria-hidden="true"></div>
+        <p class="legend"><span>reachable</span><span class="x">blocked by Docker's default filter</span></p>
+      </div>
+      <div class="panel">
+        <h3>A boxlet</h3>
+        <div class="zero"><b>0</b><span>system calls</span></div>
+        <div class="imports"><code>wasi:http/outgoing-handler</code><code>wasi:clocks/wall-clock</code></div>
+        <pre><span class="k">world</span> check {
+  <span class="k">import</span> wasi:http/outgoing-handler@0.2.0;
+  <span class="k">import</span> wasi:clocks/wall-clock@0.2.0;
+  <span class="k">export</span> check: func(image: string)
+    -&gt; result&lt;_, string&gt;;
+}</pre>
+        <p class="sub">The whole list of what this check can reach. No files, no sockets, no environment, unless you add them.</p>
+      </div>
+    </div>
+    <p class="note">System calls counted from Linux's <a href="https://github.com/torvalds/linux/blob/master/arch/x86/entry/syscalls/syscall_64.tbl">x86-64 table</a>. Docker's figure is from its <a href="https://docs.docker.com/engine/security/seccomp/">seccomp documentation</a>.</p>
+  </div>
+</section>
+
+<section class="sec" id="shapes">
+  <div class="wrap">
+    <h2>Beside your containers, not instead of them</h2>
+    <p class="intro">One registry holds both kinds of image. An orchestrator reads what each one is and runs it the right way: a WebAssembly image as a boxlet, a Linux image as a container. Both get the same network, logs and limits, so you can move one service at a time.</p>
+    <div class="shapes">
+      <div>
+<pre><span class="k">services:</span>
+  <span class="k">check:</span>
+    image: team/check:1.4  <span class="c"># WebAssembly: a boxlet</span>
+  <span class="k">api:</span>
+    image: team/api:3.2    <span class="c"># Linux: a container</span>
+  <span class="k">db:</span>
+    image: postgres:17     <span class="c"># Linux: a container</span></pre>
+        <span class="tag">How we want it to work. This isn't released yet.</span>
+        <p class="rust">The orchestrator is written in Rust. It embeds the <a href="https://github.com/bytecodealliance/wasmtime">Wasmtime</a> engine as a library, so the scheduler and the engine are one program, memory-safe, with no garbage collector pausing the process that holds every boxlet.</p>
+      </div>
+      <div class="fits">
+        <div class="panel">
+          <h3>Good as boxlets</h3>
+          <ul><li>Functions and webhooks</li><li>Policy checks and admission rules</li><li>Plugins</li><li>Tools an AI agent calls</li></ul>
+        </div>
+        <div class="panel keep">
+          <h3>Keep as containers</h3>
+          <ul><li>Databases such as Postgres and Redis</li><li>Programs that fork, or read <code>/proc</code></li><li>GPU jobs</li><li>Anything that needs a full Linux</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="now">
+  <div class="wrap">
+    <h2>Why now</h2>
+    <p class="intro">The idea is old. The standard it needed shipped in the last three years.</p>
+    <ol class="time">
+      <li><b>2013</b>Docker makes the container the thing everyone ships.</li>
+      <li><b>2019</b>Docker's founder <a href="https://twitter.com/solomonstre/status/1111004913222324225">writes</a>: "Webassembly on the server is the future of computing."</li>
+      <li><b>2024</b><a href="https://bytecodealliance.org/articles/WASI-0.2">WASI 0.2</a> gives WebAssembly a standard way to reach files, sockets and HTTP.</li>
+      <li><b>2025</b><a href="https://webassembly.org/news/2025-09-17-wasm-3.0/">WebAssembly 3.0</a> adds garbage collection and 64-bit memory, so more languages fit.</li>
+      <li><b>2026</b><a href="https://wasi.dev/roadmap">WASI 0.3</a> makes async native.</li>
+      <li><b>Next</b>Boxlets, running beside your containers.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="where">
+  <div class="wrap">
+    <div class="banner">
+      <h2>Boxlet is in development</h2>
+      <p>We're building it at Kiri, a small, fast container runtime for Mac, Windows and Linux, written in Rust. Kiri runs your Linux containers today. Boxlets are what we're adding next, so both kinds run under the same commands. The essay has the full argument, the sources and what still falls short.</p>
+      <div class="acts">
+        <a class="btn p" href="https://runkiri.com/blog/posts/after-containers-webassembly/">Read the essay</a>
+        <a class="btn s" href="https://runkiri.com/download/">Get Kiri</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="quay" id="quay" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="foot-g">
+      <div>
+        <a class="brand" href="#" aria-label="Boxlet home">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="14" width="56" height="38" rx="5" fill="none" stroke="#9AA3AE" stroke-width="3.5"/><path d="M14 20v26M22 20v26M30 20v26" stroke="#34404C" stroke-width="2"/><rect x="36" y="34" width="17" height="11" rx="2" fill="#8F7CFF"/></svg>
+          boxlet
+        </a>
+        <p>WebAssembly containers that run beside your Linux containers. In development by the team behind Kiri.</p>
+      </div>
+      <nav aria-labelledby="f1"><h2 id="f1">Boxlet</h2><ul><li><a href="/future-of-containers/">Whitepaper</a></li><li><a href="/future-of-containers/#architecture">Architecture</a></li><li><a href="#fit">How many fit</a></li><li><a href="#reach">What it can reach</a></li><li><a href="#now">Why now</a></li></ul></nav>
+      <nav aria-labelledby="f2"><h2 id="f2">Kiri</h2><ul><li><a href="https://runkiri.com/blog/posts/after-containers-webassembly/">The essay</a></li><li><a href="https://runkiri.com">Kiri</a></li><li><a href="https://docs.runkiri.com/benchmarks/">Benchmarks</a></li><li><a href="https://github.com/libracoder/kiri">GitHub</a></li></ul></nav>
+    </div>
+    <p class="foot-b">© 2026 the Kiri contributors. WebAssembly is a W3C standard; Docker is a trademark of Docker, Inc. Other names belong to their owners and are used only to describe measurements.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; };
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---- the scale drawing: a container and a boxlet, drawn to scale by area ----
+  const W = 540, H = 230, X = 30, Y = 110;            // the container's side, 2.35:1 like a real one
+  const big = document.getElementById("big");
+  el("rect", { x: X, y: Y, width: W, height: H, fill: "#1A2129", stroke: "#34404C" }, big);
+  for (let x = X + 16; x < X + W - 8; x += 14) el("path", { d: `M${x} ${Y + 10}V${Y + H - 10}`, stroke: "#222B35", "stroke-width": 2 }, big);
+  el("rect", { x: X, y: Y, width: W, height: 9, fill: "#26303A" }, big);
+  el("rect", { x: X, y: Y + H - 9, width: W, height: 9, fill: "#26303A" }, big);
+  for (const [cx, cy] of [[X, Y], [X + W - 18, Y], [X, Y + H - 13], [X + W - 18, Y + H - 13]]) el("rect", { x: cx, y: cy, width: 18, height: 13, rx: 1.5, fill: "#34404C" }, big);
+  const bk = el("text", { x: 58, y: 164, class: "paint-k halo" }, big);
+  const bv = el("text", { x: 55, y: 232, class: "paint-v halo" }, big);
+  const bu = el("text", { x: 58, y: 262, class: "paint-u halo" }, big);
+
+  // the boxlet: the same drawing, scaled about its bottom-right corner
+  const AX = 532, AY = 340;
+  const nano = document.getElementById("nano");
+  const ng = el("g", {}, nano);
+  el("rect", { x: -W, y: -H, width: W, height: H, rx: 6, fill: "#8F7CFF" }, ng);
+  for (let x = -W + 16; x < -8; x += 14) el("path", { d: `M${x} ${-H + 10}V-10`, stroke: "#5B47E0", "stroke-width": 2.5, opacity: .55 }, ng);
+  el("rect", { x: -W, y: -H, width: W, height: 10, fill: "#5B47E0" }, ng);
+  el("rect", { x: -W, y: -10, width: W, height: 10, fill: "#5B47E0" }, ng);
+  const lead = document.getElementById("lead"), nv = document.getElementById("nv");
+
+  const DATA = {
+    py: { name: "Python container", disk: 17.4, mem: 12.6 },
+    go: { name: "Go container", disk: 2.4, mem: 5.8 },
+  };
+  const BOX = { disk: 0.091, mem: 1.0 };
+  const UNIT = { disk: "image on disk", mem: "memory when idle" };
+  const fmt = (mb) => mb < 1 ? Math.round(mb * 1000) + " KB" : (mb < 10 ? mb.toFixed(1) : mb.toFixed(1).replace(/\.0$/, "")) + " MB";
+  let cmp = "py", by = "disk", s = null, raf = 0;
+
+  function place(k) {
+    ng.setAttribute("transform", `translate(${AX} ${AY}) scale(${k})`);
+    const cx = AX - (W * k) / 2, top = AY - H * k;
+    lead.setAttribute("x1", cx); lead.setAttribute("x2", cx);
+    lead.setAttribute("y1", 210); lead.setAttribute("y2", Math.max(214, top - 6));
+  }
+  function draw() {
+    const c = DATA[cmp], v = c[by], b = BOX[by], target = Math.sqrt(b / v);
+    bk.textContent = c.name; bv.textContent = fmt(v); bu.textContent = UNIT[by];
+    nv.textContent = fmt(b);
+    const times = v / b;
+    const x = times >= 20 ? Math.round(times) : times.toFixed(1).replace(/\.0$/, "");
+    document.getElementById("ratio").innerHTML = `<strong>${x}× smaller</strong> ${by === "disk" ? "on disk" : "in memory when idle"} than the same program as a ${c.name}. Drawn to scale by area.`;
+    document.getElementById("scale").setAttribute("aria-label", `To scale: a ${c.name} at ${fmt(v)} ${UNIT[by]} next to a boxlet at ${fmt(b)}.`);
+    cancelAnimationFrame(raf);
+    if (s === null || reduce) { s = target; place(s); return; }
+    const from = s, t0 = performance.now(), dur = 520;
+    const step = (t) => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); s = from + (target - from) * e; place(s); if (p < 1) raf = requestAnimationFrame(step); };
+    raf = requestAnimationFrame(step);
+  }
+  document.querySelectorAll(".seg button").forEach((btn) => btn.addEventListener("click", () => {
+    const key = btn.dataset.cmp ? "cmp" : "by";
+    btn.parentElement.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+    if (key === "cmp") cmp = btn.dataset.cmp; else by = btn.dataset.by;
+    draw();
+  }));
+  draw();
+
+  // ---- how many fit ----
+  const n = document.getElementById("n");
+  const mb = (x) => x >= 1024 ? (x / 1024).toFixed(1) + " GB" : Math.round(x) + " MB";
+  function fit() {
+    const k = +n.value, py = 12.6 * k, go = 5.8 * k, bx = 2 + 1.0 * k;
+    document.getElementById("nout").textContent = k;
+    for (const [id, v] of [["py", py], ["go", go], ["bx", bx]]) {
+      document.getElementById("b" + id).style.width = (v / py * 100).toFixed(2) + "%";
+      document.getElementById("v" + id).textContent = mb(v);
+    }
+  }
+  n.addEventListener("input", fit); fit();
+
+  // ---- 390 system calls, 44 blocked (spread evenly) ----
+  const g = document.getElementById("g390"); let html = "";
+  for (let i = 0; i < 390; i++) html += (Math.floor(i * 44 / 390) !== Math.floor((i + 1) * 44 / 390)) ? '<i class="x"></i>' : "<i></i>";
+  g.innerHTML = html;
+
+})();
+</script>
+<script src="/site.js"></script>
+</body>
+</html>
