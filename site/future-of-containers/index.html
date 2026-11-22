@@ -7,7 +7,7 @@
 <meta name="description" content="Not smaller containers, not faster containers: containers rethought from the ground up. Why we're pivoting to boxlets, the architecture, and the habits we're leaving behind.">
 <link rel="canonical" href="https://boxlet.io/future-of-containers/">
 <meta property="og:title" content="The future of containers isn't containers">
-<meta property="og:description" content="A boxlet is a WebAssembly container: your compiled code and nothing else. It runs beside your Linux containers, under the same commands.">
+<meta property="og:description" content="A boxlet is your code compiled to WebAssembly, and nothing else: no operating system, no container. It runs beside your Linux containers, under the same commands.">
 <meta property="og:url" content="https://boxlet.io/future-of-containers/">
 <meta name="theme-color" content="#0F1419">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='14' width='56' height='38' rx='5' fill='none' stroke='%239AA3AE' stroke-width='4'/%3E%3Crect x='34' y='34' width='18' height='11' rx='2' fill='%238F7CFF'/%3E%3C/svg%3E">
@@ -26,7 +26,7 @@
     </a>
     <nav class="nav" aria-label="On this page">
       <a href="/future-of-containers/">Whitepaper</a>
-      <a href="/future-of-containers/#architecture">Architecture</a>
+      <a href="/how-it-works/">How it works</a>
       <a href="/#fit">How many fit</a>
       <a href="/#now">Why now</a>
     </nav>
@@ -38,7 +38,6 @@
 <article>
 <header class="art">
   <div class="wrap">
-    <p class="eyebrow">Whitepaper</p>
     <h1>The future of containers isn't containers.</h1>
     <p class="stand">Not smaller containers. Not faster containers. Containers rethought from the ground up.</p>
     <p class="by"><b>Precious Okwu</b>, Kiri, 22 November 2026</p>
@@ -98,7 +97,7 @@
         <div class="fl-h"><h3>Containers</h3><span>dropped the kernel</span></div>
         <ol class="steps"><li><b>1979</b><span>chroot</span><small>a process gets its own root</small></li><li><b>2000</b><span>FreeBSD jails</span><small>isolated processes</small></li><li><b>2005</b><span>Solaris Zones</span><small>virtualization inside one OS</small></li><li><b>2008</b><span>cgroups and LXC</span><small>the Linux building blocks</small></li><li><b>2013</b><span>Docker</span><small>the image everyone ships</small></li><li><b>2014</b><span>Kubernetes</span><small>containers at scale</small></li></ol>
       </div>
-      <p class="handoff bx"><b>Next:</b> boxlets take over for small code</p>
+      <p class="handoff bx"><b>Next:</b> boxlets take over for code that doesn't need its own Linux</p>
       <div class="fl bx">
         <div class="fl-h"><h3>Boxlets</h3><span>drop the operating system</span></div>
         <ol class="steps"><li><b>2017</b><span>WebAssembly</span><small>in every major browser</small></li><li><b>2019</b><span>WASI</span><small>a system interface</small></li><li><b>2024</b><span>WASI 0.2</span><small>components</small></li><li><b>2025</b><span>WebAssembly 3.0</span><small>garbage collection, 64-bit memory</small></li><li><b>2026</b><span>WASI 0.3</span><small>native async</small></li><li><b>Next</b><span>Boxlets</span><small>beside your containers</small></li></ol>
@@ -172,9 +171,9 @@
           <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="14" width="56" height="38" rx="5" fill="none" stroke="#9AA3AE" stroke-width="3.5"/><path d="M14 20v26M22 20v26M30 20v26" stroke="#34404C" stroke-width="2"/><rect x="36" y="34" width="17" height="11" rx="2" fill="#8F7CFF"/></svg>
           boxlet
         </a>
-        <p>WebAssembly containers that run beside your Linux containers. In development by the team behind Kiri.</p>
+        <p>What comes after containers: your code as WebAssembly, running beside the Linux containers you keep. In development by the team behind Kiri.</p>
       </div>
-      <nav aria-labelledby="f1"><h2 id="f1">Boxlet</h2><ul><li><a href="/future-of-containers/">Whitepaper</a></li><li><a href="/future-of-containers/#architecture">Architecture</a></li><li><a href="/#fit">How many fit</a></li><li><a href="/#reach">What it can reach</a></li><li><a href="/#now">Why now</a></li></ul></nav>
+      <nav aria-labelledby="f1"><h2 id="f1">Boxlet</h2><ul><li><a href="/future-of-containers/">Whitepaper</a></li><li><a href="/how-it-works/">How it works</a></li><li><a href="/future-of-containers/#architecture">Architecture</a></li><li><a href="/#fit">How many fit</a></li><li><a href="/#reach">What it can reach</a></li><li><a href="/#now">Why now</a></li></ul></nav>
       <nav aria-labelledby="f2"><h2 id="f2">Kiri</h2><ul><li><a href="https://runkiri.com/blog/posts/after-containers-webassembly/">The essay</a></li><li><a href="https://runkiri.com">Kiri</a></li><li><a href="https://docs.runkiri.com/benchmarks/">Benchmarks</a></li><li><a href="https://github.com/libracoder/kiri">GitHub</a></li></ul></nav>
     </div>
     <p class="foot-b">© 2026 the Kiri contributors. WebAssembly is a W3C standard; Docker is a trademark of Docker, Inc. Other names belong to their owners and are used only to describe measurements.</p>
