@@ -1,6 +1,6 @@
 # boxlet.io
 
-The website for Boxlet: WebAssembly containers that run beside your Linux containers.
+The website for Boxlet, what comes after containers: your code as WebAssembly, running beside the Linux containers you keep.
 
 | Path | What it is |
 |---|---|
